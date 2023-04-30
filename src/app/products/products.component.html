@@ -1,0 +1,52 @@
+<!-- <div *ngFor="let item of [1, 3, 5]">
+  <p>Number is: {{ item }}</p>
+</div> -->
+
+<div
+  *ngFor="let p of products; let i = index"
+  [ngStyle]="{
+    backgroundColor: p.available === 'Available' ? '#bbffa8' : '#ffaea8'
+  }"
+  class="p-3 rounded mb-2"
+>
+  <div class="flex gap-2">
+    <div class="h-24 w-24 bg-white flex items-center justify-center relative">
+      <img
+        src="{{ p.image }}"
+        class="max-h-full max-w-30 w-30 object-contain"
+        alt=""
+      />
+    </div>
+    <div class="flex justify-between w-full">
+      <div>
+        <h6>{{ p.name }}</h6>
+        <div
+          [ngStyle]="{ color: p.available === 'Available' ? 'Green' : 'Red' }"
+          class="inline-block"
+        >
+          {{ p.available }}
+        </div>
+      </div>
+      <div class="">
+        <div><b>Price:</b>${{ p.price }}</div>
+        <div><b>Color:</b>{{ p.color }}</div>
+      </div>
+      <div class="">
+        <button class="mr-2 px-4 py-2 rounded-lg bg-green-200">
+          Show Details
+        </button>
+        <button
+          class="w-32 px-4 py-2 rounded-lg bg-yellow-200"
+          *ngIf="p.available === 'Available'; else notifyme"
+        >
+          Buy now
+        </button>
+        <ng-template #notifyme>
+          <button class="w-32 mr-2 px-4 py-2 rounded-lg bg-red-100">
+            Notify me
+          </button>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>
