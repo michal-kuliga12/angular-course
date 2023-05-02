@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-search',
@@ -6,9 +6,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent {
-  searchValue: string = '';
-  changeSearchValue(eventData: Event) {
-    this.searchValue = (<HTMLInputElement>eventData.target).value;
-    console.log(this.searchValue);
+  enteredSearchValue: string = '';
+
+  // Tworzymy event
+  @Output()
+  searchTextChanged: EventEmitter<string> = new EventEmitter<string>();
+  // Tworzymy metodę która będzie wywoływała ten event
+  onSearchTextChanged() {
+    this.searchTextChanged.emit(this.enteredSearchValue);
+    // Metoda emit powoduje wywołanie zdarzenia
+    // Jako argument podajemy wartość którą emitujemy
   }
 }
