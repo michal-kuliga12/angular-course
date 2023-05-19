@@ -5,6 +5,8 @@
 <div appHighlight appHover>
   <p>This is demo HTML content for custom directives</p>
 </div>
+
+<!-- ---------------@HOST BINDING--------------- -->
 <div
   class="container"
   [appBetterHighlight]="'yellow'"
@@ -12,4 +14,86 @@
   [title]="'Example'"
 >
   <p>This is demo HTML content for @HostBinding</p>
+</div>
+
+<!-- ---------------[ngClass]/custom [appClass]--------------- -->
+
+<!-- Wykorzystując [ngClass] jesteśmy w stanie w zależności od warunki przypisać elementowi daną klasę
+condition1 === true => class1
+condition2 === true => class2 -->
+<!-- <div [ngClass]="{class1: condition1, class2: condtion2}">
+  <p>This is demo HTML content for ngClass</p>
+</div> -->
+
+<!-- W projekcie tworzymy własną dyrektywę do dodawania klasy -->
+<!-- Jeśli mamy właściwość w której występuje "-" w nazwie to wtedy musimy użyc cudzysłowia czyli 'change-font' -->
+<!-- Zapisanie selektora dyrektywy appClass jest konieczne ponieważ inaczej pojawi się błąd. Angular najpierw wyszukuje właściwości display w elemencie div jeśli nie jest wskazana dyrektywa-->
+<!-- <div appClass [display]="{ container: true, 'change-font': true }"> -->
+<!-- Po dodaniu aliasa w klasie nie możemy już wykorzystywać właściwości display-->
+<div [appClass]="{ container: true, 'change-font': true }">
+  <p>This is demo HTML content for ngClass</p>
+</div>
+
+<!-- ---------------[ngStyle]/custom [appStyle]--------------- -->
+
+<!--Wykorzystując [ngStyle] możemy przypisać elementowi właściwości CSS-->
+<!-- <div class="container" [ngStyle]="{ backgroundColor: 'pink', color: 'white' }">
+  <p>This is demo HTML content for ngStyle</p>
+</div> -->
+
+<div
+  class="container"
+  [appStyle]="{
+    backgroundColor: active ? 'Lightgreen' : 'lightblue',
+    color: 'white'
+  }"
+>
+  <p>This is demo HTML content for ngStyle</p>
+</div>
+
+<!-- ---------------*ngIf/custom *appIf--------------- -->
+
+<!--Tutaj zajmujemy się tworzeniem strukturalnych dyrektyw-->
+<button class="btn btn-notice" (click)="displayNotice()">Show notice</button>
+<!--*ngIf jest zaznaczone z gwiazdką, czyli w inny sposób niż inne dyrektywy. Jest to tylko oznaczenie, które mówi nam o tym że zostanie przez Angulara utworzona templatka i na niej będzie nałożona dyrektywa-->
+<!-- 1. Przykład *ngIf -->
+
+<div class="info-container notice" *appIf="display">
+  <h3>This is important notice</h3>
+  <p>This is notice issued for all website users.</p>
+</div>
+<!-- <ng-template #myVar>
+  <p>This is example paragraph</p>
+</ng-template> -->
+
+<!-- 2. Przykład z [ngIf] -->
+<!-- Tutaj utworzono templatke dla której div jest dzieckiem. Działanie jednak pozostaje takie samo jak w powyzszym przypadku. Angular konwertuje składniowo przykład 1 do przykładu 2  -->
+<!-- <ng-template [ngIf]="display" [ngIfElse]="myVar">
+  <div class="info-container notice" *ngIf="display">
+    <h3>This is important notice</h3>
+    <p>This is notice issued for all website users.</p>
+  </div>
+</ng-template> -->
+<!-- <ng-template #myVar>
+  <p>This is example paragraph</p>
+</ng-template> -->
+
+<p *appIf="10 > 5">This is example paragraph</p>
+
+<!-- ---------------ngSwitch--------------- -->
+<!-- ngSwitch jest strukturalną dyrektywą -->
+<!-- Przy ngSwitch nie używamy * ponieważ nie manipuluje DOM'em tylko sprawdza warunek -->
+<div class="container" [ngSwitch]="occupation">
+  <p *ngSwitchCase="'teacher'">
+    This paragraph will be displayed when occupation is teacher
+  </p>
+  <p *ngSwitchCase="'designer'">
+    This paragraph will be displayed when occupation is designer
+  </p>
+  <p *ngSwitchCase="'lawyer'">
+    This paragraph will be displayed when occupation is lawyer
+  </p>
+  <p *ngSwitchDefault>
+    This paragraph will be displayed if no case matches switch expression
+  </p>
 </div>
