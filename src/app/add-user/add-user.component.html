@@ -1,0 +1,19 @@
+<div class="form">
+  <div>
+    <input
+      type="text"
+      placeholder="Username"
+      id="username"
+      [(ngModel)]="username"
+    />
+    <!--[(ngModel)] jest z biblioteki Angulara i powoduje, że wartość targetu eventu jest stale przypisywana do określonej przez nas wartości-->
+  </div>
+  <div>
+    <select name="status" id="status" [(ngModel)]="status">
+      <option value="active">Active</option>
+      <option value="inactive">Inactive</option>
+    </select>
+  </div>
+  <div><button (click)="AddUser()">Create User</button></div>
+  <!--Korzystamy z metody określonej w klasie-->
+</div>
