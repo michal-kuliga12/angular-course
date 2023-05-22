@@ -1,0 +1,8 @@
+<div class="container" *ngFor="let user of users">
+  <div class="user-container">
+    <div class="user-name">{{ user.name }}</div>
+    <div class="user-job">{{ user.job }}</div>
+    <!--Chcemy zrobić tak, aby po naciśnięciu przycisku wysłać dane konkretnego użytkownika do komponentu user-detail-->
+    <button (click)="ShowDetails(user)">Details</button>
+  </div>
+</div>
